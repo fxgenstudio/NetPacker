@@ -127,7 +127,4 @@
   <data name="Assembly" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\assembly.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="SharpCompress" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\packages\SharpCompress.0.21.1\lib\net45\SharpCompress.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
 </root>

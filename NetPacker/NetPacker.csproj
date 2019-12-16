@@ -70,16 +70,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="dnlib, Version=3.3.0.0, Culture=neutral, PublicKeyToken=50e96378b6e77999, processorArchitecture=MSIL">
-      <HintPath>..\packages\dnlib.3.3.0\lib\net45\dnlib.dll</HintPath>
+      <HintPath>packages\dnlib.3.3.0\lib\net45\dnlib.dll</HintPath>
     </Reference>
-    <Reference Include="ILRepack, Version=2.0.10.0, Culture=neutral, PublicKeyToken=c3e9373f1c31208e, processorArchitecture=MSIL">
-      <HintPath>..\packages\ILRepack.Lib.2.0.10\lib\net40\ILRepack.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="ILRepack, Version=2.0.18.0, Culture=neutral, PublicKeyToken=c3e9373f1c31208e, processorArchitecture=MSIL">
+      <HintPath>packages\ILRepack.Lib.2.0.18\lib\net40\ILRepack.dll</HintPath>
     </Reference>
-    <Reference Include="SharpCompress, Version=0.21.1.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpCompress.0.21.1\lib\net45\SharpCompress.dll</HintPath>
-      <Private>True</Private>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+    <Reference Include="SharpCompress, Version=0.24.0.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL">
+      <HintPath>packages\SharpCompress.0.24.0\lib\net45\SharpCompress.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />

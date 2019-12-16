@@ -2,7 +2,6 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -13,6 +12,7 @@ using System.Text;
 
 namespace NetPacker
 {
+
     class Program
     {
         private static string appToBeCompressed;
@@ -34,35 +34,26 @@ namespace NetPacker
 
             Console.WriteLine("NetPacker v0.1");
 
-
             //Test ILOptimizer only
             //ILOptimizer op = new ILOptimizer();
             //op.Pack(@"D:\temp\my\CSharp\ConsoleSDL\bin\Release\ConsoleSDL.exe");
             //return;
 
-
             //flag variables.
             string iconSelected = "";
 
             bool displayCode = false; //display the code?
-            //bool exclude7zip = false; //exclude the 7-zip dll from being injected?
-            bool messageMode = false; //is there a message for the console?
-            bool assemblyMode = false; //include information about the executable (meta data stuff).
             bool ripIconMode = false; //rip the icon from the source executable?
-            bool getIcon = false; //get an icon that already exists?
             bool export = false; //export an empty assembly file? (or the sevensharpzip file).
 
             if (args.Length < 2)
             {
                 //information.
-                Console.WriteLine("[Input Exe | -e] [Output File] (-w) (-d) (-i) (-m [text file]) (-a [file]) (dlls) ... ");
+                Console.WriteLine("[Input Exe | -e] [Output File] (-w) (-d) (-rip) (dlls) ... ");
                 Console.WriteLine("-e (Exports a file with all the default compilation tags for you to modify. You could also use this option to export the SevenSharpZip.dll file)");
                 Console.WriteLine("-w (Specifies to not launch a console at the start of the application. Windows Mode)");
                 Console.WriteLine("-d (Displays the code generated.)");
-                Console.WriteLine("-rip (attempts to rip the icon from the exe it is compressing. Do not use with -i).");
-                Console.WriteLine("-m [text file] (allows you to add a text file to display in the console). ");
-                Console.WriteLine("-a [file] (allows you to write in some C# tag code. This is recommended for adding in your compilation tags).");
-                Console.WriteLine("-i [icon file] (allows you to add an icon to your application of your choice. Do not use with -rip).");
+                Console.WriteLine("-rip (attempts to rip the icon from the exe it is compressing.");
 
                 Environment.Exit(0);
             }
@@ -104,38 +95,9 @@ namespace NetPacker
                         //nothing.
                     }
                     else
-                    if (getIcon) // a flag to read the next argument as the icon file.
-                    {
-                        iconSelected = word;
-                        getIcon = false;
-                    }
-                    else
-                    if (assemblyMode) // a flag to read the next argument as an assembly information file.
-                    {
-                        possibleAssembly = word;
-                        assemblyMode = false;
-                    }
-                    else
-                    if (messageMode) // a flag to read the next argument as a message file.
-                    {
-                        possibleMessage = word;
-                        messageMode = false;
-                    }
-                    else if (word.Trim() == "-rip") // command flag to rip icon from previous exe (to the best of its ability).
+                    if (word.Trim() == "-rip") // command flag to rip icon from previous exe (to the best of its ability).
                     {
                         ripIconMode = true;
-                    }
-                    else if (word.Trim() == "-i") // command flag to grab an icon.
-                    {
-                        getIcon = true;
-                    }
-                    else if (word.Trim() == "-a") // command flag to grab an assembly file.
-                    {
-                        assemblyMode = true;
-                    }
-                    else if (word.Trim() == "-m") // command flag to grab a message file.
-                    {
-                        messageMode = true;
                     }
                     else
                     if (word.Trim() == "-w") //command flag to compile as a window executable, and not as a console executable.
@@ -152,9 +114,7 @@ namespace NetPacker
                         dllInstructions.Add("" + word.Trim() + "");
                     }
 
-
                 }
-
 
                 i++;
             }

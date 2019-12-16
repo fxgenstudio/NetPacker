@@ -47,17 +47,7 @@ namespace Voxel
             }
         }
 
-        public override bool Equals(object obj)
-        {
-            if (obj is Vector3Int) return this.Equals((Vector3Int)obj);
-            else return false;
-        }
-
-        public bool Equals(Vector3Int other)
-        {
-            return ((this.X == other.X) && (this.Y == other.Y) && (this.Z == other.Z));
-        }
-
+    
 
     }
 

@@ -99,10 +99,9 @@ namespace Intro01
             Console.WriteLine("Process: {0}-bit", bits);
 
             //Vector
-            Console.WriteLine("Hardware Vector: {0}", System.Numerics.Vector.IsHardwareAccelerated);
+            //Console.WriteLine("Hardware Vector: {0}", System.Numerics.Vector.IsHardwareAccelerated);
 
             //Load Shader
-
             shader = new Shader();
             shader.Load();
 

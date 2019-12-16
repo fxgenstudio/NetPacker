@@ -7,29 +7,39 @@ using System.Linq;
 namespace NetPacker
 {
 
+    /// <summary>
+    /// Method usage description
+    /// </summary>
     public class MethodUsage
     {
         public int Count;
         public MethodDef def;
     }
 
+    /// <summary>
+    /// Class usage description
+    /// </summary>
     public class ClassUsage
     {
         public int Count;
         public TypeDef def;
     }
 
+    /// <summary>
+    /// This class remove methods not referenced (TODO classes and fields)
+    /// </summary>
     public class ILOptimizer
     {
+        Dictionary<string, ClassUsage> m_classesUsage = new Dictionary<string, ClassUsage>();
+        Dictionary<string, MethodUsage> m_methodsUsage = new Dictionary<string, MethodUsage>();
+
+
         public void Dump(string _strExeFileName)
         {
-            // Load mscorlib.dll
-            //var filename = typeof(void).Module.FullyQualifiedName;
             var mod = ModuleDefMD.Load(_strExeFileName);
 
             int totalNumTypes = 0;
-            // mod.Types only returns non-nested types.
-            // mod.GetTypes() returns all types, including nested types.
+
             foreach (var type in mod.GetTypes())
             {
                 totalNumTypes++;
@@ -56,10 +66,6 @@ namespace NetPacker
             Console.WriteLine();
             Console.WriteLine("ILOptimizer: Total number of types: {0}", totalNumTypes);
         }
-
-
-        Dictionary<string, ClassUsage> m_classesUsage = new Dictionary<string, ClassUsage>();
-        Dictionary<string, MethodUsage> m_methodsUsage = new Dictionary<string, MethodUsage>();
 
 
         public void Pack(string _strExeFileName, string _strExePacket)
@@ -98,7 +104,7 @@ namespace NetPacker
         }
 
 
-        public void CreateTypesEntriesForUsagesCount(ModuleDefMD mod)
+        void CreateTypesEntriesForUsagesCount(ModuleDefMD mod)
         {
 
 
@@ -159,7 +165,7 @@ namespace NetPacker
 
         }
 
-        private void DisplayReports()
+        void DisplayReports()
         {
             //Display methods usages
             int usedMethods = 0;
@@ -199,7 +205,7 @@ namespace NetPacker
             Console.WriteLine($"ILOptimizer: Used Classes: {usedClasses}/{m_classesUsage.Count}");
         }
 
-        private void ComputeMethodsUsage(ModuleDefMD mod)
+        void ComputeMethodsUsage(ModuleDefMD mod)
         {
             ///////////////////////////////////////////////////////////////
             // Compute methods usages in Methods
@@ -213,21 +219,11 @@ namespace NetPacker
             }
         }
 
-
-        private void ComputeClassesUsage(ModuleDefMD mod)
+        void ComputeClassesUsage(ModuleDefMD mod)
         {
-            ///////////////////////////////////////////////////////////////
-            // Compute methods usages in Methods
             foreach (var type in mod.GetTypes())
             {
-                //Research methods usages in methods IL body
-                //foreach (var m in type.Methods)
-                {
-                    ProcessClasses(type);
-                }
-
-
-
+                ProcessClasses(type);
             }
         }
 
@@ -334,7 +330,6 @@ namespace NetPacker
 
         }
 
-
         void ProcessTypeMethod(MethodDef m)
         {
             if (m.HasBody)
@@ -420,10 +415,10 @@ namespace NetPacker
                             //Method is used !
                             usage.Count++;
 
-                            if (methodDef.FullName.Contains("MakeCurrent"))
-                            {
-                                int a = 1;
-                            }
+                            //if (methodDef.FullName.Contains("MakeCurrent"))
+                            //{
+                            //    int a = 1;
+                            //}
                         }
                         else
                         {
@@ -440,34 +435,13 @@ namespace NetPacker
 
 
                     }
-
-
-
-
-
                 }
 
-
-
-            }
-            else
-            {
-
-                //MethodUsage usage;
-                //if (m_methodsUsage.TryGetValue(m.FullName, out usage))
-                //{
-                //    //Method is used !
-                //    usage.Count++;
-                //}
-                //else
-                //{
-                //    Debug.WriteLine($"Not found {m.FullName} ");
-                //}
             }
 
         }
 
-        public void CleanUpMethods(ModuleDefMD mod)
+        void CleanUpMethods(ModuleDefMD mod)
         {
             //Remove unless method
             int methodsRemoved = 0;
@@ -501,7 +475,7 @@ namespace NetPacker
 
         }
 
-        public void CleanUpClasses(ModuleDefMD mod)
+        void CleanUpClasses(ModuleDefMD mod)
         {
             //Remove unless method
             int classesRemoved = 0;
