@@ -22,6 +22,7 @@ It's for my tests only, so we need a true tiny intro02 OpenGL skeleton without S
 netpacker.exe ..\..\..\Examples\Intro01\bin\Release\Intro01.exe ..\..\..\Examples\Intro01\bin\Release\Packed.exe
 
 ##### Output
+```
 NetPacker v0.1
 ILOptimizer: Original Size: 69632 bytes
 
@@ -33,5 +34,4 @@ ILOptimizer: Removed methods count: 111
 ILOptimizer: Packed Size: 63488 bytes
 
 NetPacker: GZip Compressed Size: 26536  Percent: 62
-
-
+```
