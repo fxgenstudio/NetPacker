@@ -12,7 +12,7 @@
  Rk. NetPacker is based on NetCompressor and dnLib projects.
   
 ###  Example
-I create Intro01 projet for an example that use SQL and OpenGL.
+I create Intro01 projet for an example that use SDL and OpenGL.
 It's for my tests only, so we need a true tiny intro02 OpenGL skeleton without SDL (With Winform ?) ...
 
 ### usage

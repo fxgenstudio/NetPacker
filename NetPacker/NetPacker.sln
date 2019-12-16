@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{15477573-227A-48EA-B7CA-1580598E5996}"
 	ProjectSection(SolutionItems) = preProject
-		ReadMe.md = ReadMe.md
+		..\ReadMe.md = ..\ReadMe.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetPacker", "NetPacker.csproj", "{4681C140-EC07-4A22-AC17-38CA6C8579AC}"

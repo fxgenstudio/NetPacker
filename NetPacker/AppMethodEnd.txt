@@ -1,11 +1,4 @@
 ﻿
-//nothing passed on yet.
+//Start Packed.exe
 var assemb = Assembly.Load(tAppBytes);
-tAppBytes = null; 
-GC.Collect();
-
-try {
-	assemb.EntryPoint.Invoke(null, new object[] { new string[0]});
-} catch(Exception ex) {
-	Console.WriteLine("Invoke Main error ! {0}", ex.Message);
-}
+assemb.EntryPoint.Invoke(null, null);

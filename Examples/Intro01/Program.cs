@@ -19,7 +19,7 @@ namespace Intro01
         static Shader shader;
         private static float rotationAngle;
 
-        static void Main(string[] args)
+        static void Main()
         {
 
             //Get SDL

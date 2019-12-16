@@ -1,16 +1,24 @@
-﻿ResourceManager rm = new ResourceManager("resource", Assembly.GetExecutingAssembly());
-byte[] appBytes = (byte[])rm.GetObject("%appname%");
+﻿//ResourceManager rm = new ResourceManager("resource", Assembly.GetExecutingAssembly());
+//byte[] appBytes = (byte[])rm.GetObject("%appname%");
+
+//Load 64k exe from embbeded resource
+var memStr = Assembly.GetExecutingAssembly().GetManifestResourceStream("64k");
+
+            int b1 = memStr.ReadByte();
+            Console.WriteLine(b1);
+
+//Console.WriteLine("memStr:"+ memStr.Length);
 
 //Loading App
 int appSize = %appsize%;
-MemoryStream memStr = new MemoryStream(appBytes);
+//MemoryStream memStr = new MemoryStream(appBytes);
 var gStream = new %mode%;
-
-
 
 byte[] tAppBytes = new byte[appSize];
 
+
 gStream.Read(tAppBytes, 0, appSize);
+
 memStr.Close();
 gStream.Close();
 

@@ -34,6 +34,7 @@ namespace NetPacker
 
             Console.WriteLine("NetPacker v0.1");
 
+
             //Test ILOptimizer only
             //ILOptimizer op = new ILOptimizer();
             //op.Pack(@"D:\temp\my\CSharp\ConsoleSDL\bin\Release\ConsoleSDL.exe");
@@ -145,7 +146,7 @@ namespace NetPacker
                 //if it supports resource files on this platform, go through with the generation.
                 if (codeProvider.Supports(GeneratorSupport.Resources))
                 {
-                    parameters.EmbeddedResources.Add("resource.resources");
+                    parameters.EmbeddedResources.Add("64k");
                     string source = GenerateSource(); //generate the code and embed dlls.
 
                     //if the displayCode flag is on, print out the source code generated.
@@ -198,7 +199,7 @@ namespace NetPacker
 
                     //Delete some of the temporary compilation files.
                     File.Delete(outputFile + "temp_c.dat");
-                    File.Delete("resource.resources");
+                    //File.Delete("resource.resources");
                     File.Delete(outputFile + "_temp");
 
                     //it only needs to delete this if the icon was ripped in the first place.
@@ -285,8 +286,9 @@ namespace NetPacker
 
 
             //add the resource to the file.
-            writer.AddResource(APPLICATION_NAME, File.ReadAllBytes(outputFile + "temp_c.dat"));
+            writer.AddResource("64k", File.ReadAllBytes(outputFile + "temp_c.dat"));
 
+            //writer.AddResource()
             //add the code.
             string code = manager.GetString("AppMethod").Replace("%appname%", APPLICATION_NAME).Replace("%appsize%", "" + appSize).Replace("%mode%", mode);
 
@@ -393,7 +395,7 @@ namespace NetPacker
             result += GetAssemblyInfo() + "\n";
 
             //create a resource writer, so we can embed the compressed materials.
-            ResourceWriter writer = new ResourceWriter(File.Open("resource.resources", FileMode.Create));
+            ResourceWriter writer = new ResourceWriter(File.Open("64k", FileMode.Create));
 
             //add the basic structure.
             result += "namespace CompressedApp\n{\nclass Program\n{\n[STAThread]\nstatic void Main(string[] args)\n{\n" + GetMainMethodCode(writer) + "\n}\n}\n}\n";
