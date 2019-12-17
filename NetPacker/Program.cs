@@ -141,13 +141,18 @@ namespace NetPacker
 
                 //tell it to make an exe.
                 parameters.GenerateExecutable = true;
-                parameters.CompilerOptions = "-platform:x86";
+                parameters.CompilerOptions = "-platform:x86 -optimize";
+                parameters.IncludeDebugInformation = false;
 
                 //if it supports resource files on this platform, go through with the generation.
                 if (codeProvider.Supports(GeneratorSupport.Resources))
                 {
-                    parameters.EmbeddedResources.Add("64k");
-                    string source = GenerateSource(); //generate the code and embed dlls.
+
+                    //Unpacker source code
+                    string source = GenerateUnpackerSourceCode(parameters);
+
+                    //Embedded resources
+                    //parameters.EmbeddedResources.Add("64k");
 
                     //if the displayCode flag is on, print out the source code generated.
                     if (displayCode)
@@ -240,7 +245,7 @@ namespace NetPacker
         /// </summary>
         /// <param name="writer"></param>
         /// <returns></returns>
-        private static string CompressApplication(ResourceWriter writer)
+        private static string CompressApplication(CompilerParameters _parameters)
         {
             //this is what the application is called in the resource file.
             const string APPLICATION_NAME = "app";
@@ -286,7 +291,11 @@ namespace NetPacker
 
 
             //add the resource to the file.
-            writer.AddResource("64k", File.ReadAllBytes(outputFile + "temp_c.dat"));
+            //writer.AddResource("64k", File.ReadAllBytes(outputFile + "temp_c.dat"));
+            //byte[] byArr = File.ReadAllBytes(outputFile + "temp_c.dat");
+            //writer.AddResourceData("64k", "ResourceTypeCode.ByteArray", byArr);
+
+            _parameters.EmbeddedResources.Add(outputFile + "temp_c.dat");
 
             //writer.AddResource()
             //add the code.
@@ -359,14 +368,14 @@ namespace NetPacker
         /// </summary>
         /// <param name="writer"></param>
         /// <returns></returns>
-        private static string GetMainMethodCode(ResourceWriter writer)
+        private static string GetMainMethodCode(CompilerParameters _parameters)
         {
             string result = "";
 
 
             GetDLLs();
             result += GetMessage() + "\n";
-            result += CompressApplication(writer) + "\n";
+            result += CompressApplication(_parameters) + "\n";
             result += GetEnd() + "\n";
 
 
@@ -380,7 +389,7 @@ namespace NetPacker
         /// Goes through all the auxillary methods to generate the source code to load the application after it is compressed.
         /// </summary>
         /// <returns></returns>
-        private static string GenerateSource()
+        private static string GenerateUnpackerSourceCode(CompilerParameters _parameters)
         {
             string result = "";
 
@@ -395,14 +404,14 @@ namespace NetPacker
             result += GetAssemblyInfo() + "\n";
 
             //create a resource writer, so we can embed the compressed materials.
-            ResourceWriter writer = new ResourceWriter(File.Open("64k", FileMode.Create));
+            //ResourceWriter writer = new ResourceWriter(File.Open("64k", FileMode.Create));
 
             //add the basic structure.
-            result += "namespace CompressedApp\n{\nclass Program\n{\n[STAThread]\nstatic void Main(string[] args)\n{\n" + GetMainMethodCode(writer) + "\n}\n}\n}\n";
+            result += "namespace CompressedApp\n{\nclass Program\n{\n[STAThread]\nstatic void Main(string[] args)\n{\n" + GetMainMethodCode(_parameters) + "\n}\n}\n}\n";
 
 
             //close the resource writer.
-            writer.Close();
+            //writer.Close();
 
 
             return result;
