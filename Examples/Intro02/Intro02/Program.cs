@@ -3,15 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Intro02
 {
     class Program
     {
-        static void Main(string[] args)
+
+
+        [STAThread]
+        static void Main()
         {
-            Form1 form = new Form1();
-            form.ShowDialog();
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
         }
+
     }
 }
