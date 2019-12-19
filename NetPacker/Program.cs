@@ -46,6 +46,7 @@ namespace NetPacker
             bool displayCode = false; //display the code?
             bool ripIconMode = false; //rip the icon from the source executable?
             bool export = false; //export an empty assembly file? (or the sevensharpzip file).
+            bool bWinExe = false; //Console or windows executable
 
             if (args.Length < 2)
             {
@@ -103,7 +104,8 @@ namespace NetPacker
                     else
                     if (word.Trim() == "-w") //command flag to compile as a window executable, and not as a console executable.
                     {
-                        parameters.CompilerOptions = "/target:winexe";
+                        //parameters.CompilerOptions = "/target:winexe";
+                        bWinExe = true;
                     }
                     else
                     if (word.Trim() == "-d") // command flag to display the generated code. 
@@ -141,7 +143,12 @@ namespace NetPacker
 
                 //tell it to make an exe.
                 parameters.GenerateExecutable = true;
-                parameters.CompilerOptions = "-platform:x86 -optimize";
+
+                if (bWinExe)
+                    parameters.CompilerOptions = "-platform:x86 -optimize -target:winexe";
+                else
+                    parameters.CompilerOptions = "-platform:x86 -optimize";
+
                 parameters.IncludeDebugInformation = false;
 
                 //if it supports resource files on this platform, go through with the generation.
@@ -234,6 +241,11 @@ namespace NetPacker
                 }
 
             }
+
+
+            long length = new System.IO.FileInfo(outputFile).Length;
+
+            Console.WriteLine($"NetPacker: Final executable size: {length} bytes");
 
         }
 

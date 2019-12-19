@@ -16,6 +16,7 @@ namespace Intro02
         public Form1()
         {
             this.DoubleBuffered = true;
+
         }
 
         protected override void OnCreateControl()
@@ -41,20 +42,27 @@ namespace Intro02
 
         public void Draw()
         {
+
             const int GL_COLOR_BUFFER_BIT = 0x00004000;
             const int GL_DEPTH_BUFFER_BIT = 0x00000100;
+
+            glFlush();
+
 
             glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            SwapBuffers(this.Handle);
+            _hDC = GetDC(Handle);
+
+            SwapBuffers(_hDC);
+
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             //base.OnPaint(e);
 
-       
+            //Draw();
         }
 
         IntPtr _hDC, _hRC;
@@ -65,8 +73,10 @@ namespace Intro02
                 PIXELFORMATDESCRIPTOR pfd = new PIXELFORMATDESCRIPTOR();
                 pfd.Initialize();
 
+                
 
                 _hDC = GetDC(Handle);
+
                 if (_hDC == IntPtr.Zero)
                     throw new Win32Exception(Marshal.GetLastWin32Error());
 
@@ -114,14 +124,14 @@ namespace Intro02
         #endregion
 
         #region PIXELFORMATDESCRIPTOR 
-        public const byte
-            PFD_TYPE_RGBA = 0,
-            PFD_TYPE_COLORINDEX = 1;
+        //public const byte
+        //    PFD_TYPE_RGBA = 0,
+        //    PFD_TYPE_COLORINDEX = 1;
 
-        public const sbyte
-            PFD_MAIN_PLANE = 0,
-            PFD_OVERLAY_PLANE = 1,
-            PFD_UNDERLAY_PLANE = -1;
+        //public const byte
+        //    PFD_MAIN_PLANE = 0,
+        //    PFD_OVERLAY_PLANE = 1,
+        //    PFD_UNDERLAY_PLANE = -1;
 
         public const System.UInt32
             PFD_DOUBLEBUFFER = 0x00000001,
@@ -163,13 +173,13 @@ namespace Intro02
                 nVersion = 1;
                 //dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER | PFD_GENERIC_ACCELERATED;
                 dwFlags = PFD_DRAW_TO_WINDOW| PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER ;
-                iPixelType = PFD_TYPE_RGBA;
+                iPixelType = 0; // PFD_TYPE_RGBA;
                 cColorBits = 32;
                 cAccumBits = 0;
-                cDepthBits = 32;
+                cDepthBits = 16;
                 cStencilBits = 0;
                 cAuxBuffers = 0;
-                iLayerType = 0; //PFD_MAIN_PLANE
+                iLayerType = 0; // PFD_MAIN_PLANE;
                 bReserved = 0;
                 dwLayerMask = dwVisibleMask = dwDamageMask = 0;
             }
@@ -204,7 +214,9 @@ namespace Intro02
         [DllImport("opengl32.dll", SetLastError = true)]
         public static extern void glClear(UInt32 flags);
 
-        
+        [DllImport("opengl32.dll", SetLastError = true)]
+        public static extern void glFlush();
+
 
     }
 

@@ -85,7 +85,7 @@ namespace NetPacker
 
             DisplayReports();
 
-            CleanUpMethods(mod);
+            //CleanUpMethods(mod);
             //CleanUpClasses(mod); //Doesn't  work yet need remove fields classref
 
             //public static MakeCurrentDelegate MakeCurrent;              //TODO remove fields !
