@@ -62,7 +62,7 @@ namespace Intro02
         }
 
         IntPtr _hDC, _hRC;
-        protected virtual void CreateOpenGLContext()
+        protected void CreateOpenGLContext()
         {
             try
             {

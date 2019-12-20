@@ -144,6 +144,14 @@ namespace NetPacker
                     if (m.IsConstructor == true)
                         continue;
 
+                    if (m.IsVirtual)
+                    {
+                        continue;
+                    }
+
+                    if (m.FullName.Contains("Timer_Tick"))  //TODO fieldRef Delegate
+                        continue;
+
                     //if (m.HasOverrides)
                     //    continue;
 
