@@ -106,7 +106,6 @@
   <ItemGroup>
     <Content Include="AppMethod.txt" />
     <Content Include="AppMethodEnd.txt" />
-    <Content Include="Assembly.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

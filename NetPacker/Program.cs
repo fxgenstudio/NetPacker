@@ -170,6 +170,7 @@ namespace NetPacker
                     //add the system dll to referenced assemblies.
                     parameters.ReferencedAssemblies.Add("System.dll");
 
+
                     //set it to export the assembly.
                     parameters.OutputAssembly = outputFile;
 
